@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>จดตลาด</title>
+<meta name="theme-color" content="#EDF4DE">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#C9E86C;--lime-p:#EDF6D8;--lime-s:#DCEFA6;--inkfix:#14170F;
+--bg:#EDF4DE;--surface:#FFFFFF;--text:#14170F;--strong:#14170F;--mut:#7D856E;--line:#E2E9D2;--warn:#BF4A24;--good:#4B7A2E;--track:#EEF2E4}
+:root[data-theme="dark"]{--bg:#12150D;--surface:#1C2116;--text:#EAF0DC;--strong:#262D18;--mut:#8FA07C;--line:#2B3322;--warn:#E2805A;--good:#9ED97A;--track:#242B1A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{overflow:hidden}
+html,body{margin:0}
+body{height:var(--vh,100%)}
+body{font-family:Prompt,Sarabun,sans-serif;color:var(--text);background:var(--bg);display:flex;flex-direction:column;max-width:520px;margin:0 auto;padding-top:env(safe-area-inset-top);transition:background .2s,color .2s}
+header{flex:none;padding:12px 16px 14px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+h1{display:flex;align-items:center;gap:9px;margin:0;font-size:20px;font-weight:700;letter-spacing:-.3px;white-space:nowrap}
+.logo{width:36px;height:36px;border-radius:12px}
+.topR{display:flex;align-items:center;gap:8px}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
+.seg button{border:0;background:none;color:var(--mut);font:inherit;font-size:13px;font-weight:500;padding:7px 11px;border-radius:999px}
+.seg button.on{background:var(--strong);color:#fff;font-weight:600}
+.iconbtn{border:1px solid var(--line);background:var(--surface);width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;padding:0}
+.ti{width:18px;height:18px;stroke:var(--text)}
+.row2{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}
+.date{position:relative;display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);padding:9px 16px;border-radius:999px;font-size:15px;font-weight:500}
+.date input{position:absolute;inset:0;opacity:0;width:100%}
+#save{background:var(--strong);color:var(--lime);font-size:15px;padding:11px 20px}
+main{flex:1;overflow-y:auto;padding:0 14px calc(var(--vh,100vh)*.3)}
+.grid{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:12px 12px 8px;margin-top:4px}
+.h,.r{display:grid;grid-template-columns:1fr 64px 84px 24px;gap:6px;margin-bottom:7px;align-items:center}
+.h{font-size:12px;font-weight:500;color:var(--mut);padding:0 8px}
+.r input,.f{width:100%;font:inherit;font-size:17px;padding:11px 12px;border-radius:15px;border:2px solid transparent;background:var(--lime-p);color:var(--inkfix);min-width:0}
+.r input.q{background:#F4F6EF;text-align:center}
+.r input.a{background:var(--lime-s);text-align:right;font-weight:600}
+.r input::placeholder{color:#A3AC92}
+.r input.n:placeholder-shown,.r input.a:placeholder-shown{background:#F5F7F0;font-weight:400}
+.ci{width:17px;height:17px;stroke:var(--mut)}
+.r input:focus,.f:focus{outline:none;border-color:var(--inkfix)}
+.x{border:0;background:none;color:#B9C2A6;font-size:16px;padding:0}
+.hint{grid-column:1/-1;font-size:13px;margin:-3px 0 3px 4px}.hint:empty{display:none}
+.use{border:0;border-radius:999px;background:var(--lime);color:var(--inkfix);font:inherit;font-size:13px;font-weight:500;padding:6px 14px}
+.warn{color:var(--warn);font-weight:500}
+.labor{display:flex;align-items:center;gap:10px;background:var(--strong);color:#fff;border-radius:22px;padding:14px 18px;margin-top:12px}
+.labor span{flex:1;font-size:15px}
+.labor b{font-size:20px;color:var(--lime)}
+.card{display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--line);font:inherit;color:var(--text);text-align:left;background:var(--surface);border-radius:22px;padding:14px 16px;margin:10px 0 0}
+.card .info{flex:1}.card small{display:block;font-size:13px;color:var(--mut)}.card b{font-weight:600}
+.card.ok{background:var(--lime);border-color:var(--lime)}
+.card.ok small{color:#3C4531}
+.empty{text-align:center;padding:50px 20px;color:var(--mut);background:var(--surface);border:1px solid var(--line);border-radius:26px;margin-top:14px}
+.mn{display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;margin-bottom:12px}
+.mn button{border:0;background:var(--lime);color:var(--inkfix);width:40px;height:40px;border-radius:50%;font-size:22px}
+.mn button:disabled{opacity:.3}
+.split{display:flex;gap:8px;margin-bottom:16px}
+.split div{flex:1;background:var(--lime);border-radius:20px;padding:12px 14px;font-size:13px}
+.split b{display:block;margin-top:2px;font-size:22px;font-weight:700;color:var(--inkfix)}
+.cmp{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mut);margin:-6px 0 14px;padding:0 2px}
+.cmp b{color:var(--text);font-weight:600}
+.cmp .up{color:var(--warn);font-weight:700}
+.cmp .down{color:var(--good);font-weight:700}
+.bi{display:block;width:100%;border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;margin-bottom:12px}
+.bi:active{opacity:.8}
+.bl{display:flex;justify-content:space-between;font-size:15px}
+.bl small{color:var(--mut)}
+.tr{height:10px;background:var(--track);border-radius:999px;margin-top:5px;overflow:hidden}
+.tr i{display:block;height:100%;background:var(--lime);border-radius:999px}
+.tick{width:34px;height:34px;border-radius:50%;border:2px solid var(--text);background:transparent;color:#fff;font-size:18px;flex:none;display:grid;place-items:center;padding:0}
+.tick.on{background:var(--strong);border-color:var(--strong)}
+.due{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--strong);color:#fff;border-radius:26px;padding:18px 20px;margin-top:4px}
+.due small{display:block;font-size:13px;color:#A9B396}
+.due b{font-size:30px;font-weight:700;color:var(--lime)}
+.due button{border:0;border-radius:999px;background:var(--lime);color:var(--inkfix);font:inherit;font-size:14px;font-weight:600;padding:11px 16px}
+.fl{display:flex;gap:8px;margin-top:12px}
+.fl button{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font:inherit;font-size:14px;background:var(--surface);color:var(--text)}
+.fl button.on{background:var(--strong);color:#fff;border-color:var(--strong)}
+.bar{flex:none;background:var(--surface);border-top:1px solid var(--line);border-radius:26px 26px 0 0;padding:14px 20px calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+.sum{flex:1}
+.sum small{display:block;font-size:13px;color:var(--mut)}
+.sum b{font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.1}
+.btn{border:0;border-radius:999px;background:var(--strong);color:#fff;font:inherit;font-size:17px;font-weight:600;padding:15px 26px}
+.btn:disabled{opacity:.55}
+.btn.del{background:#fff;border:1px solid #E7C9C0;color:#B3392B;padding:15px 18px;font-size:16px}
+#pop{position:fixed;z-index:8;display:none;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px #14170f26;padding:7px;flex-wrap:wrap;gap:6px}
+#pop button{border:0;border-radius:999px;padding:9px 15px;font:inherit;font-size:16px;background:var(--lime-p);color:var(--inkfix)}
+.bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:7}
+.bg.show{display:flex}
+.sh{background:var(--surface);width:100%;max-width:520px;border-radius:30px 30px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto}
+.sh h2{margin:0 0 4px;font-size:20px;font-weight:700}
+.sh label{display:block;font-size:13px;color:var(--mut);margin:14px 0 5px}
+.shhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.shhead button{border:0;background:var(--lime-p);color:var(--inkfix);width:32px;height:32px;border-radius:50%;font-size:15px;flex:none}
+.rowb{display:flex;gap:10px;margin-top:20px}
+.rowb .btn:last-child{flex:1}
+.ichart{width:100%;height:150px;display:block;margin-top:6px}
+.iaxis{stroke:var(--line);stroke-width:1}
+.iline{fill:none;stroke:var(--lime);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.idot{fill:var(--lime);stroke:var(--surface);stroke-width:2}
+.ilbl{font-size:10px;fill:var(--mut)}
+.ilbl.v{font-size:11px;font-weight:700;fill:var(--text)}
+.icap{font-size:13px;color:var(--mut);text-align:center;margin-top:2px;min-height:18px}
+.icap b{color:var(--text)}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.irow:first-child{border-top:0}
+.irow small{color:var(--mut)}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--strong);color:#fff;padding:12px 22px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;z-index:9;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><h1><img class="logo" src="logo-mark.png" alt="">จดตลาด</h1><div class="topR"><div class="seg"><button id="t1" class="on">จดวันนี้</button><button id="t2">ประวัติ</button><button id="t3">สรุป</button></div><button id="theme" class="iconbtn" aria-label="สลับธีมสว่าง/มืด"></button></div></div>
+  <div class="row2"><div class="date"><span id="dateTxt"></span><svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><input type="date" id="dateIn"></div><button class="btn" id="save">บันทึก</button></div>
+</header>
+<main id="main"></main>
+<div class="bar">
+  <div class="sum"><small id="sub"></small><b id="total">0 ฿</b></div>
+</div>
+<div id="pop"></div>
+<div class="bg" id="ed"><div class="sh"><h2>แก้ไขรายการ</h2>
+  <label>ชื่อรายการ</label><input class="f" id="en">
+  <label>จำนวน</label><input class="f" id="eq" type="number" inputmode="decimal">
+  <label>จำนวนเงิน (บาท)</label><input class="f" id="ea" type="number" inputmode="decimal">
+  <div class="rowb"><button class="btn del" id="edel">ลบ</button><button class="btn" id="esave">บันทึก</button></div>
+</div></div>
+<div class="bg" id="ih"><div class="sh"><div class="shhead"><h2 id="ihTitle"></h2><button id="ihx" aria-label="ปิด">✕</button></div><div id="ihBody"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const CFG=window.APP_CONFIG||{};
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+const LABOR_NAME = 'ค่าแรง';
+const DEFAULTS = ['มะเขือเทศ', 'พริกชี้ฟ้า', 'พริกขี้หนู', 'ผักสลัด', 'พักชี', 'กุ้ง', 'หมึก'];
+
+// ราคา/หน่วยเฉลี่ย (10 ครั้งล่าสุด) และการซื้อครั้งล่าสุดของแต่ละรายการ
+function stats_(all) {
+  const st = {};
+  all.map(function (r, i) { return { r: r, i: i }; })
+    .sort(function (a, b) { return a.r.date < b.r.date ? -1 : a.r.date > b.r.date ? 1 : a.i - b.i; })
+    .forEach(function (x) {
+      const r = x.r; if (r.name === LABOR_NAME) return;
+      const o = st[r.name] || (st[r.name] = { n: 0, u: [] });
+      o.n++; o.lastQty = r.qty; o.lastAmt = r.amount; o.u.push(r.qty > 0 ? r.amount / r.qty : r.amount);
+    });
+  Object.keys(st).forEach(function (k) {
+    const u = st[k].u.slice(-10); st[k].avg = u.reduce(function (a, b) { return a + b; }, 0) / u.length; delete st[k].u;
+  });
+  return st;
+}
+function dayOf_(all, date) {
+  const count = {}; DEFAULTS.forEach(function (d) { count[d] = 0; });
+  all.forEach(function (r) { if (r.name !== LABOR_NAME) count[r.name] = (count[r.name] || 0) + 1; });
+  const day = all.filter(function (r) { return r.date === date; });
+  const pick = function (r) { return { id: r.id, name: r.name, qty: r.qty, amount: r.amount }; };
+  return {
+    items: day.filter(function (r) { return r.name !== LABOR_NAME; }).map(pick),
+    laborRows: day.filter(function (r) { return r.name === LABOR_NAME; }).map(pick),
+    sugg: Object.keys(count).sort(function (a, b) { return count[b] - count[a]; }),
+    stats: stats_(all)
+  };
+}
+function history_(all, paid) {
+  paid = paid || {};
+  const days = {};
+  all.forEach(function (r) {
+    const d = days[r.date] || (days[r.date] = { date: r.date, total: 0, count: 0, paid: paid[r.date] || 0 });
+    d.total += r.amount; if (r.name !== LABOR_NAME) d.count += 1;
+  });
+  return Object.keys(days).sort().reverse().slice(0, 90).map(function (k) { return days[k]; });
+}
+function summary_(all) {
+  const ms = {};
+  all.forEach(function (r) {
+    const ym = r.date.slice(0, 7), m = ms[ym] || (ms[ym] = { ym: ym, total: 0, labor: 0, by: {} });
+    m.total += r.amount;
+    if (r.name === LABOR_NAME) m.labor += r.amount;
+    else { const b = m.by[r.name] || (m.by[r.name] = { name: r.name, amount: 0, count: 0 }); b.amount += r.amount; b.count++; }
+  });
+  return Object.keys(ms).sort().reverse().slice(0, 12).map(function (k) {
+    const m = ms[k];
+    return { ym: k, total: m.total, labor: m.labor,
+      items: Object.keys(m.by).map(function (n) { return m.by[n]; }).sort(function (a, b) { return b.amount - a.amount; }).slice(0, 15) };
+  });
+}
+function itemHistory_(all, name) {
+  return all.filter(function (r) { return r.name === name; })
+    .map(function (r) { return { date: r.date, qty: r.qty, amount: r.amount, unit: r.qty > 0 ? r.amount / r.qty : r.amount }; })
+    .sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+}
+
+const $=id=>document.getElementById(id);
+const LABOR=100, MINROWS=10;
+const fmt=n=>Number(n).toLocaleString('th-TH');
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const thai=s=>{const [y,m,d]=s.split('-').map(Number);return d+'/'+m+'/'+String((y+543)%100).padStart(2,'0')};
+const MN=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const ymTxt=ym=>{const [y,m]=ym.split('-').map(Number);return MN[m-1]+' '+(y+543)};
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=t=>{const e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)};
+
+// ---- โหมดมืด ----
+const SUNSVG='<svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/></svg>';
+const MOONSVG='<svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);$('theme').innerHTML=t==='dark'?SUNSVG:MOONSVG;try{localStorage.setItem('theme',t)}catch(e){}}
+let _theme;try{_theme=localStorage.getItem('theme')}catch(e){}
+if(!_theme)_theme=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+applyTheme(_theme);
+$('theme').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+
+
+
+// ---- API (นอก Apps Script = โหมดทดลอง เก็บในเครื่อง) ----
+const REAL=typeof google!=='undefined'&&google.script&&google.script.run;
+const mem=(()=>{let rows=[];try{rows=JSON.parse(localStorage.getItem('mk4')||'[]')}catch(e){}
+ const save=()=>{try{localStorage.setItem('mk4',JSON.stringify(rows))}catch(e){}};
+ let paid={};try{paid=JSON.parse(localStorage.getItem('pd4')||'{}')}catch(e){}
+ const savePd=()=>{try{localStorage.setItem('pd4',JSON.stringify(paid))}catch(e){}};
+ return{getDay:d=>dayOf_(rows,d),getHistory:()=>history_(rows,paid),setPaid:(ds,p)=>{ds.forEach(d=>{if(p)paid[d]=rows.filter(r=>r.date===d).reduce((s,r)=>s+r.amount,0);else delete paid[d]});savePd();return true},getSummary:()=>summary_(rows),getItemHistory:name=>itemHistory_(rows,name),
+  addTrip:(d,items,labor)=>{const t=Date.now();items.forEach((o,i)=>rows.push({...o,date:d,id:t+'-'+i}));if(labor>0)rows.push({date:d,name:LABOR_NAME,qty:'',amount:labor,id:t+'-L'});save();return true},
+  updateItem:o=>{const r=rows.find(x=>x.id===o.id);if(r){r.name=o.name;r.qty=o.qty;r.amount=o.amount}save();return true},
+  deleteItem:id=>{rows=rows.filter(r=>r.id!==id);save();return true}}})();
+// เรียกหลังบ้าน: ใน Apps Script ใช้ google.script.run / ถ้าฝากบนเว็บใช้ fetch ไป API_URL / ถ้าไม่ตั้งค่า = โหมดทดลอง
+const api=(fn,...a)=>new Promise((ok,no)=>{
+  if(REAL)return google.script.run.withSuccessHandler(ok).withFailureHandler(no)[fn](...a);
+  if(CFG.API_URL)return fetch(CFG.API_URL,{method:'POST',redirect:'follow',body:JSON.stringify({key:CFG.API_KEY||'',fn,args:a})})
+    .then(r=>r.json()).then(j=>j.ok?ok(j.data):no(new Error(j.error||'error'))).catch(no);
+  ok(mem[fn](...a));
+});
+
+let S={date:iso(new Date()),sugg:[],stats:{},tab:1,dirty:false,viewDate:'',rows:[],ed:null,sum:[],mi:0,hist:[],hf:'all'};
+
+function mkRow(){
+  const r=document.createElement('div');r.className='r';
+  r.innerHTML='<input class="n" placeholder="ชื่อรายการ" enterkeyhint="next" autocomplete="off"><input class="q" type="number" inputmode="decimal" enterkeyhint="next"><input class="a" type="number" inputmode="decimal" placeholder="บาท" enterkeyhint="next"><button class="x" tabindex="-1" aria-label="ล้างแถว">✕</button><div class="hint"></div>';
+  return r;
+}
+const rowsEl=()=>[...document.querySelectorAll('#grid .r')];
+function calc(){
+  let sum=0,n=0;
+  rowsEl().forEach(r=>{if(r.querySelector('.n').value.trim()){n++;sum+=parseFloat(r.querySelector('.a').value)||0}});
+  $('total').textContent=fmt(sum+(n?LABOR:0))+' ฿';
+  $('save').textContent=n?'บันทึก '+fmt(sum+LABOR)+' ฿':'บันทึก';
+  $('sub').textContent=n?`ของ ${fmt(sum)} + ค่าแรง ${fmt(LABOR)}`:'ยังไม่มีรายการ';
+  const l=$('labor');if(l)l.style.display=n?'':'none';
+}
+// ราคาครั้งก่อน + เตือนราคาขึ้น
+function hint(r){
+  const h=r.querySelector('.hint'),st=S.stats[r.querySelector('.n').value.trim()];
+  const q=r.querySelector('.q').value,a=r.querySelector('.a').value;
+  h.innerHTML='';if(!st)return;
+  if(!q&&!a){h.innerHTML=`<button class="use">↺ ครั้งก่อน ${st.lastQty>0?fmt(st.lastQty)+' = ':''}${fmt(st.lastAmt)} ฿ · แตะใช้</button>`;return}
+  const av=parseFloat(a);if(!av||st.n<2)return;
+  const qn=parseFloat(q),unit=qn>0?av/qn:av;
+  if(unit>st.avg*1.2)h.innerHTML=`<span class="warn">แพงกว่าปกติ ${Math.round((unit/st.avg-1)*100)}% (ปกติราว ${fmt(Math.round(st.avg*10)/10)} ฿/หน่วย)</span>`;
+}
+
+const dp=()=>document.querySelector('.row2');
+function setTab(n){S.tab=n;[1,2,3].forEach(i=>$('t'+i).classList.toggle('on',i===n));$('save').style.display=n===1?'':'none';dp().style.display=n===1?'':'none'}
+const leave=()=>!(S.tab===1&&S.dirty)||confirm('มีรายการที่ยังไม่ได้บันทึก ไปต่อเลยไหม?');
+const loading=()=>{$('main').innerHTML='<div class="empty">กำลังโหลด…</div>'};
+
+function load(){
+  setTab(1);$('dateTxt').textContent=thai(S.date);$('dateIn').value=S.date;
+  $('main').innerHTML='<div class="grid" id="grid"><div class="h"><span>รายการ</span><span style="text-align:center">จำนวน</span><span style="text-align:right">จำนวนเงิน</span><span></span></div></div><div class="labor" id="labor"><span>ค่าแรง (คิดให้อัตโนมัติ)</span><b>'+LABOR+' ฿</b></div>';
+  const g=$('grid');for(let i=0;i<MINROWS;i++)g.appendChild(mkRow());
+  S.dirty=false;calc();
+  api('getDay',S.date).then(d=>{S.sugg=d.sugg;S.stats=d.stats}).catch(()=>toast('เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง'));
+}
+const due=d=>Math.max(0,d.total-d.paid);
+function showHistory(){setTab(2);loading();api('getHistory').then(h=>{S.hist=h;drawHist()})}
+function drawHist(){
+  const m=$('main'),y=m.scrollTop,h=S.hist,un=h.filter(d=>due(d)>0),tot=un.reduce((s,d)=>s+due(d),0),list=S.hf==='un'?un:h;
+  $('total').textContent=fmt(tot)+' ฿';$('sub').textContent='ยอดค้างรับ';
+  m.innerHTML=`<div class="due"><div><small>ค้างรับทั้งหมด</small><b>${fmt(tot)} ฿</b><small>${un.length} วัน</small></div>${un.length?'<button id="all">ติ๊กรับทั้งหมด</button>':'<span>รับครบแล้ว</span>'}</div><div class="fl"><button data-f="all" class="${S.hf==='all'?'on':''}">ทั้งหมด</button><button data-f="un" class="${S.hf==='un'?'on':''}">ยังไม่รับเงิน</button></div>`+
+  (list.length?list.map(d=>{const dd=due(d),ok=dd===0,part=!ok&&d.paid>0;
+    return `<div class="card${ok?' ok':''}" data-d="${d.date}"><button class="tick${ok?' on':''}" data-t="${d.date}" aria-label="รับเงินแล้ว">${ok?'✓':''}</button><span class="info"><b>${thai(d.date)}</b><small>${d.count} รายการ · ${ok?'รับเงินแล้ว':part?'<span class="warn">รับแล้ว '+fmt(d.paid)+' ค้าง '+fmt(dd)+'</span>':'ยังไม่รับเงิน'}</small></span><b>${fmt(d.total)} ฿</b></div>`}).join(''):'<div class="empty">'+(h.length?'ไม่มียอดค้างรับ':'ยังไม่มีประวัติ')+'</div>');
+  m.scrollTop=y;
+}
+function setPaid(ds,flag){
+  const old=S.hist.map(d=>d.paid);
+  S.hist.forEach(d=>{if(ds.includes(d.date))d.paid=flag?d.total:0});drawHist();
+  api('setPaid',ds,flag).catch(()=>{S.hist.forEach((d,i)=>d.paid=old[i]);drawHist();toast('บันทึกไม่สำเร็จ ลองอีกครั้ง')});
+}
+$('main').addEventListener('click',e=>{
+  if(S.tab!==2||!$('main').querySelector('.due'))return;
+  const t=e.target.closest('[data-t]'),c=e.target.closest('.card[data-d]'),f=e.target.closest('[data-f]');
+  if(f){S.hf=f.dataset.f;drawHist();return}
+  if(e.target.closest('#all')){const ds=S.hist.filter(d=>due(d)>0).map(d=>d.date);if(confirm('ติ๊กรับเงินแล้ว '+ds.length+' วัน?'))setPaid(ds,true);return}
+  if(t){setPaid([t.dataset.t],due(S.hist.find(d=>d.date===t.dataset.t))>0);return}
+  if(c)showDay(c.dataset.d);
+});
+function showDay(d){
+  S.viewDate=d;loading();
+  api('getDay',d).then(r=>{
+    S.rows=r.items.concat(r.laborRows);
+    $('total').textContent=fmt(S.rows.reduce((s,i)=>s+i.amount,0))+' ฿';$('sub').textContent='วันที่ '+thai(d)+' · แตะรายการเพื่อแก้ไข';
+    const card=(i,lab)=>`<button class="card" data-id="${esc(i.id)}"${lab?' style="background:var(--lime)"':''}><span class="info"><b>${esc(i.name)}</b>${lab?'':`<small>จำนวน ${i.qty===''?'-':fmt(i.qty)}</small>`}</span><b>${fmt(i.amount)} ฿</b></button>`;
+    $('main').innerHTML='<button class="card" id="back"><b>← กลับ</b></button>'+r.items.map(i=>card(i,0)).join('')+r.laborRows.map(i=>card(i,1)).join('');
+    $('back').onclick=showHistory;
+    $('main').querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>openEd(S.rows.find(x=>x.id===b.dataset.id)));
+  });
+}
+function showSummary(){
+  setTab(3);loading();
+  api('getSummary').then(s=>{S.sum=s;S.mi=0;drawSum()});
+}
+function cmpRow(M){
+  const idx=S.sum.indexOf(M), prev=S.sum[idx+1];
+  if(!prev||!prev.total) return '';
+  const [py,pm]=prev.ym.split('-').map(Number), expect=(pm===12?(py+1)+'-01':py+'-'+String(pm+1).padStart(2,'0'));
+  if(expect!==M.ym) return '';
+  const diff=M.total-prev.total;
+  if(diff===0) return '<div class="cmp">เท่ากับเดือนที่แล้ว</div>';
+  const up=diff>0, pct=Math.round(Math.abs(diff)/prev.total*100);
+  return `<div class="cmp"><span class="${up?'up':'down'}">${up?'▲':'▼'}</span>${up?'มากกว่า':'น้อยกว่า'}เดือนที่แล้ว <b>${pct}%</b> (${up?'+':'-'}${fmt(Math.abs(diff))} ฿)</div>`;
+}
+function drawSum(){
+  const M=S.sum[S.mi];
+  if(!M){$('total').textContent='0 ฿';$('sub').textContent='';$('main').innerHTML='<div class="empty">ยังไม่มีข้อมูล</div>';return}
+  $('total').textContent=fmt(M.total)+' ฿';$('sub').textContent='รวมเดือน '+ymTxt(M.ym);
+  const mx=Math.max(...M.items.map(i=>i.amount),1);
+  $('main').innerHTML=`<div class="grid"><div class="mn"><button id="pv" ${S.mi>=S.sum.length-1?'disabled':''}>‹</button><b>${ymTxt(M.ym)}</b><button id="nx" ${S.mi<=0?'disabled':''}>›</button></div>
+  <div class="split"><div>ค่าของ<b>${fmt(M.total-M.labor)} ฿</b></div><div>ค่าแรง<b>${fmt(M.labor)} ฿</b></div></div>
+  ${cmpRow(M)}
+  <div style="font-size:13px;opacity:.65;margin-bottom:6px">รายการที่จ่ายเยอะสุด · แตะดูราคาย้อนหลัง</div>
+  ${M.items.map(i=>`<button class="bi" data-item="${esc(i.name)}"><div class="bl"><span>${esc(i.name)} <small>×${i.count}</small></span><b>${fmt(i.amount)} ฿</b></div><div class="tr"><i style="width:${Math.round(i.amount/mx*100)}%"></i></div></button>`).join('')}</div>`;
+  $('pv').onclick=()=>{S.mi++;drawSum()};$('nx').onclick=()=>{S.mi--;drawSum()};
+}
+function buildItemHistory(list){
+  if(!list.length) return '<div class="empty">ยังไม่มีข้อมูล</div>';
+  const pts=list.slice(-20),vals=pts.map(p=>p.unit);
+  let min=Math.min(...vals),max=Math.max(...vals);
+  if(min===max){const pad=Math.max(1,min*.1);min-=pad;max+=pad}
+  const W=300,H=140,pad=10,top=20,bot=24,Wc=W-pad*2,Hc=H-top-bot;
+  const x=i=>pts.length>1?pad+i*(Wc/(pts.length-1)):pad+Wc/2;
+  const y=v=>top+(1-(v-min)/(max-min))*Hc;
+  const dpts=pts.map((p,i)=>[x(i),y(p.unit)]);
+  const path=dpts.map((d,i)=>(i?'L':'M')+d[0].toFixed(1)+' '+d[1].toFixed(1)).join(' ');
+  const first=pts[0],last=pts[pts.length-1];
+  let svg=`<svg class="ichart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+  svg+=`<line x1="${pad}" y1="${top+Hc}" x2="${W-pad}" y2="${top+Hc}" class="iaxis"/>`;
+  svg+=`<line x1="${pad}" y1="${top+Hc/2}" x2="${W-pad}" y2="${top+Hc/2}" class="iaxis"/>`;
+  if(pts.length>1) svg+=`<path d="${path}" class="iline"/>`;
+  dpts.forEach((d,i)=>{svg+=`<circle cx="${d[0].toFixed(1)}" cy="${d[1].toFixed(1)}" r="4" class="idot" data-i="${i}"/>`});
+  svg+=`<text x="${dpts[0][0]}" y="${Math.max(11,dpts[0][1]-9)}" class="ilbl v" text-anchor="start">${fmt(Math.round(first.unit))}</text>`;
+  if(pts.length>1) svg+=`<text x="${dpts[dpts.length-1][0]}" y="${Math.max(11,dpts[dpts.length-1][1]-9)}" class="ilbl v" text-anchor="end">${fmt(Math.round(last.unit))}</text>`;
+  svg+='</svg>';
+  S.ihPts=pts;
+  const cap=`<div class="icap" id="icap">ล่าสุด <b>${thai(last.date)}</b> ซื้อ ${last.qty===''?'-':fmt(last.qty)} ได้ ${fmt(last.amount)} ฿ (≈${fmt(Math.round(last.unit*10)/10)} ฿/หน่วย)</div>`;
+  const rows=list.slice().reverse().slice(0,20).map(p=>`<div class="irow"><span>${thai(p.date)}<br><small>จำนวน ${p.qty===''?'-':fmt(p.qty)}</small></span><b>${fmt(p.amount)} ฿</b></div>`).join('');
+  return svg+cap+`<div style="margin-top:10px">${rows}</div>`;
+}
+function openItemHistory(name){
+  $('ihTitle').textContent=name;$('ihBody').innerHTML='<div class="empty">กำลังโหลด…</div>';$('ih').classList.add('show');
+  api('getItemHistory',name).then(list=>{$('ihBody').innerHTML=buildItemHistory(list)}).catch(()=>{$('ihBody').innerHTML='<div class="empty">โหลดไม่สำเร็จ ลองใหม่อีกครั้ง</div>'});
+}
+$('main').addEventListener('click',e=>{const b=e.target.closest('.bi[data-item]');if(b&&S.tab===3)openItemHistory(b.dataset.item)});
+$('ih').addEventListener('click',e=>{
+  if(e.target===$('ih')){$('ih').classList.remove('show');return}
+  const c=e.target.closest('.idot');if(!c||!S.ihPts)return;
+  const p=S.ihPts[+c.dataset.i];if(!p)return;
+  $('icap').innerHTML=`<b>${thai(p.date)}</b> ซื้อ ${p.qty===''?'-':fmt(p.qty)} ได้ ${fmt(p.amount)} ฿ (≈${fmt(Math.round(p.unit*10)/10)} ฿/หน่วย)`;
+});
+$('ihx').onclick=()=>$('ih').classList.remove('show');
+function openEd(it){S.ed=it;$('en').value=it.name;$('eq').value=it.qty;$('ea').value=it.amount;$('ed').classList.add('show')}
+$('ed').onclick=e=>{if(e.target===$('ed'))$('ed').classList.remove('show')};
+$('esave').onclick=async()=>{
+  const name=$('en').value.trim();if(!name){toast('ใส่ชื่อรายการก่อนนะ');return}
+  try{await api('updateItem',{id:S.ed.id,name,qty:parseFloat($('eq').value)||'',amount:parseFloat($('ea').value)||0});$('ed').classList.remove('show');toast('แก้ไขแล้ว ✓');showDay(S.viewDate)}catch(e){toast('แก้ไขไม่สำเร็จ ลองอีกครั้ง')}
+};
+$('edel').onclick=async()=>{
+  if(!confirm('ลบรายการนี้?'))return;
+  try{await api('deleteItem',S.ed.id);$('ed').classList.remove('show');toast('ลบแล้ว');showDay(S.viewDate)}catch(e){toast('ลบไม่สำเร็จ')}
+};
+$('t1').onclick=()=>{if(S.tab!==1)load()};
+$('t2').onclick=()=>{if(leave())showHistory()};
+$('t3').onclick=()=>{if(leave())showSummary()};
+$('dateIn').onchange=e=>{if(e.target.value){S.date=e.target.value;$('dateTxt').textContent=thai(S.date)}};
+
+// ---- ให้ช่องที่พิมพ์อยู่เห็นเหนือแป้นพิมพ์เสมอ ----
+const vv=window.visualViewport;
+function fit(){document.documentElement.style.setProperty('--vh',(vv?vv.height:window.innerHeight)+'px');window.scrollTo(0,0)}
+// เลื่อนช่องที่พิมพ์อยู่ขึ้นไปใกล้ส่วนบนของจอ (แป้นพิมพ์จะได้ไม่ทับ แม้เบราว์เซอร์ไม่ย่อหน้าจอ)
+function keepVisible(){const a=document.activeElement;if(!(a&&a.closest&&a.closest('#grid')))return;
+  const m=$('main');m.scrollTo({top:m.scrollTop+a.getBoundingClientRect().top-(m.getBoundingClientRect().top+90),behavior:'smooth'})}
+fit();
+(vv||window).addEventListener('resize',()=>{fit();setTimeout(keepVisible,120)});
+if(vv)vv.addEventListener('scroll',()=>window.scrollTo(0,0));
+document.addEventListener('focusin',e=>{if(e.target.closest('#grid')){fit();setTimeout(keepVisible,120);setTimeout(keepVisible,450)}});
+$('main').addEventListener('scroll',()=>{const a=document.activeElement;if(a&&a.matches&&a.matches('#grid .n'))showPop(a)});
+
+// ---- รายการแนะนำเด้งขึ้น ----
+const pop=$('pop');
+function showPop(inp){
+  const q=inp.value.trim().toLowerCase();
+  const list=S.sugg.filter(s=>!q||s.toLowerCase().includes(q)).filter(s=>s.toLowerCase()!==q).slice(0,6);
+  if(!list.length){pop.style.display='none';return}
+  pop.innerHTML='';
+  list.forEach(s=>{const b=document.createElement('button');b.textContent=s;
+    b.onpointerdown=e=>{e.preventDefault();const r=inp.closest('.r');inp.value=s;pop.style.display='none';S.dirty=true;calc();hint(r);r.querySelector('.q').focus()};pop.appendChild(b)});
+  const r=inp.getBoundingClientRect();
+  pop.style.display='flex';pop.style.left='12px';pop.style.right='12px';pop.style.maxWidth='496px';
+  const h=pop.offsetHeight;pop.style.top=(r.top-h-6>4?r.top-h-6:r.bottom+6)+'px';
+}
+document.addEventListener('focusin',e=>{if(e.target.matches('#grid .n'))showPop(e.target);else pop.style.display='none'});
+document.addEventListener('input',e=>{
+  if(!e.target.closest('#grid'))return;
+  S.dirty=true;calc();const r=e.target.closest('.r');hint(r);
+  if(e.target.classList.contains('n')){showPop(e.target);const rs=rowsEl();if(r===rs[rs.length-1]&&e.target.value)$('grid').appendChild(mkRow())}
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||!e.target.closest('#grid'))return;e.preventDefault();
+  const r=e.target.closest('.r'),c=e.target.classList;
+  if(c.contains('n'))r.querySelector('.q').focus();else if(c.contains('q'))r.querySelector('.a').focus();
+  else if(c.contains('a')){const nx=r.nextElementSibling;if(nx)nx.querySelector('.n').focus()}
+});
+document.addEventListener('click',e=>{
+  const t=e.target,r=t.closest('#grid .r');if(!r)return;
+  if(t.classList.contains('use')){const st=S.stats[r.querySelector('.n').value.trim()];if(st.lastQty>0)r.querySelector('.q').value=st.lastQty;r.querySelector('.a').value=st.lastAmt;S.dirty=true;calc();hint(r)}
+  else if(t.classList.contains('x')){r.querySelectorAll('input').forEach(i=>i.value='');r.querySelector('.hint').innerHTML='';const rs=rowsEl();if(rs.length>MINROWS&&r!==rs[rs.length-1])r.remove();S.dirty=true;calc()}
+});
+
+$('save').onclick=async()=>{
+  const items=rowsEl().map(r=>({name:r.querySelector('.n').value.trim(),qty:parseFloat(r.querySelector('.q').value)||'',amount:parseFloat(r.querySelector('.a').value)||0})).filter(o=>o.name);
+  if(!items.length){toast('ยังไม่มีรายการ');return}
+  const tot=$('total').textContent;
+  $('save').disabled=true;
+  try{await api('addTrip',S.date,items,LABOR);S.date=iso(new Date());load();toast('บันทึกแล้ว ✓ รวม '+tot)}
+  catch(e){toast('บันทึกไม่สำเร็จ ลองอีกครั้ง')}
+  $('save').disabled=false;
+};
+load();
+</script>
+</body>
+</html>
